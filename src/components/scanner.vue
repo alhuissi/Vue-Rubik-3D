@@ -105,7 +105,7 @@ export default {
         },
 
         changeColor(index, event) {
-            if(index===22 || index===4 || index===31) {  // 白色、蓝色、红色中心点用于定位，不允许改变
+            if(index===22 || index===4 || index===31) {
                 this.$alert('FIXED POINT', 'ALERT', {
                     confirmButtonText: 'OK',
                     type: 'warning',
@@ -193,27 +193,27 @@ export default {
                     1: 'L',
                     5: 'B'
                 }
-                for(var i=0; i<9; i++) {  // 上
+                for(var i=0; i<9; i++) { 
                     var index = this.positions[i].colorIndex
                     cubeString += colorDict[index]
                 }
-                for(var i=27; i<36; i++) {  // 右
+                for(var i=27; i<36; i++) {  
                     var index = this.positions[i].colorIndex
                     cubeString += colorDict[index]
                 }
-                for(var i=18; i<27; i++) {  // 前
+                for(var i=18; i<27; i++) {  
                     var index = this.positions[i].colorIndex
                     cubeString += colorDict[index]
                 }
-                for(var i=45; i<54; i++) {  // 下
+                for(var i=45; i<54; i++) {  
                     var index = this.positions[i].colorIndex
                     cubeString += colorDict[index]
                 }
-                for(var i=9; i<18; i++) {  // 左
+                for(var i=9; i<18; i++) {  
                     var index = this.positions[i].colorIndex
                     cubeString += colorDict[index]
                 }
-                for(var i=36; i<45; i++) {  // 后
+                for(var i=36; i<45; i++) {  
                     var index = this.positions[i].colorIndex
                     cubeString += colorDict[index]
                 }

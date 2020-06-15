@@ -25,13 +25,14 @@ export default {
       {
         name: "description",
         content:
-          "Rubik's cube with ThreeJS and Vue",
+          "Rubik's cube game with Javascript and ThreeJS",
       },
       {
         property: "og:title",
         content: "Rubiks",
       },
       { property: "og:site_name", content: "Rubiks" },
+      { property: "og:description", content: "Rubik's cube game with Javascript and ThreeJS" },
       { property: "og:type", content: "website" },
       { name: "robots", content: "index,follow" }
     ]

@@ -1,35 +1,33 @@
 <template>
   <div style="background-color:rgba(0,0,0,0);padding-top:1vh;padding-bottom:1vh;">
-
-        <a href="https://www.thedeval.com" target="_blank">
-          <img src="../assets/logo.png" v-transition class="logo-deval">
-          </a>
+<div id="madeByContainer">
+        made by <br/>
+        <a href="https://www.thedeval.com" target="_blank" style="color:white!important;text-decoration:none!important;">
+          <img src="../assets/logo.png" v-transition class="logo-deval"><br/>deval
+          </a></div>
         <span v-transition class="msg">{{ steps }}</span>
         <div id="barraLateral">
           
         <el-button
-          type="primary"
+          type="secondary"
           icon="el-icon-refresh"
-          circle
-          style="font-size:30px;"
+          style="font-size:25px;margin:5px;padding:15px;"
           @click="randomRotate"
           :loading="randomRotateLoading"
           :disabled="status"
         ></el-button><br/>
         <el-button
-          type="success"
+          type="secondary"
           icon="el-icon-success"
-          circle
-          style="font-size:30px;"
+          style="font-size:25px;margin:5px;padding:15px;"
           @click="autoRest"
           :loading="autoRestRunning"
           :disabled="status"
         ></el-button><br/>
         <el-button
-          type="success"
+          type="secondary"
           icon="el-icon-arrow-right"
-          circle
-          style="font-size:30px;"
+          style="font-size:25px;margin:5px;padding:15px;"
           @click="autoRestOneStep"
           :disabled="status"
         ></el-button>
@@ -124,9 +122,9 @@ export default {
 
   mounted() {
     if (this._isMobile()) {
-      this.off = 4;
+      this.off = 3;
       this.mobile = true;
-      this.height = "150px";
+      this.height = "0px";
       this.width = String(window.innerWidth / 2) + "px";
     } else {
       this.width = String(window.innerWidth / 8) + "px";
@@ -134,9 +132,6 @@ export default {
     init(this._isMobile());
     setInterval(this.updateTime, 100);
 
-    // LBBRRURRRDDRDDLDLDFFFFFFFFFUUUUUDUBLBDBLBBLLBLRURLBRUD
-    // LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-    // DBULUFLUBLDFFRLBLRFFDRFLLUUBBRDDUURDFDDBLULRURDRBBRBFF
   },
 
   methods: {
@@ -382,10 +377,22 @@ export default {
 .msg {
   position:fixed;
   transition: all 0.3s ease;
+  left:47vw;
   height: 30px;
   top: 5vh;
   color: white;
   font-size: 40px;
+  	color: #fff;
+	text-shadow:
+		0 0 5px rgba(0,178,255,0.7),
+		0 0 10px rgba(0,178,255,0.7),
+		0 0 20px rgba(0,178,255,0.7),
+		0 0 40px rgba(38,104,127,1),
+		0 0 80px rgba(38,104,127,1),
+		0 0 90px rgba(38,104,127,1),
+		0 0 100px rgba(38,104,127,1),
+		0 0 140px rgba(38,104,127,1),
+		0 0 180px rgba(38,104,127,1);
 }
 
 .msg.v-enter,
@@ -393,6 +400,7 @@ export default {
   height: 0;
   padding: 0 10px;
   opacity: 0;
+  
 }
 
 .txt {
@@ -401,9 +409,7 @@ export default {
   cursor: pointer;
 }
 .logo-deval{
-  position:fixed;
-  top:5vh;
-  left:5vw;
+  position:relative;
   height:7vh;
   cursor:pointer;
   transition: all 725ms ease;
@@ -415,5 +421,12 @@ export default {
     position: fixed;
     right: 5vw;
     top:5vh;
+  }
+  #madeByContainer{
+    position:fixed;
+    color: white;
+    left:5vw;
+    bottom: 5vh;
+    font-weight:600;
   }
 </style>

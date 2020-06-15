@@ -35,7 +35,7 @@ var stepBystep = [];
 var newSolution = true;
 var mobile = false;
 var start = true;
-var canvasOff = 200;
+var canvasOff = 0;
 export var randomRotateLoading = false;
 export var autoRestRunning = false;
 export var acceptStringRunning = false;
@@ -111,7 +111,7 @@ export function init(is_mobile) {
   initScene();
   initLight();
   initObj();
-  // initCord();  // 添加坐标轴
+  // initCord(); 
   render();
 
 
@@ -270,7 +270,7 @@ function faces(rgbaColor) {
     context.stroke();
     context.fill();
   } else {
-    alert("浏览器不支持Canvas无法预览.");
+    alert("Canvas");
   }
   return canvas;
 }
