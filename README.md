@@ -24,6 +24,7 @@ If you need to pack, execute:
 ```shell
 npm run build
 ```
+The generated static files are saved in the ./dist directory
 
 For deployment, connect your app to Firebase and select Firebase Hosting:
 ```shell
@@ -34,8 +35,5 @@ Then deploy with:
 ```shell
 firebase deploy
 ```
-
-The generated static files are saved in the ./dist directory
-
 
 www.thedeval.com
