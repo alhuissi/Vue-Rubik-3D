@@ -25,6 +25,16 @@ If you need to pack, execute:
 npm run build
 ```
 
+For deployment, connect your app to Firebase and select Firebase Hosting:
+```shell
+firebase init
+```
+
+Then deploy with:
+```shell
+firebase deploy
+```
+
 The generated static files are saved in the ./dist directory
 
 
