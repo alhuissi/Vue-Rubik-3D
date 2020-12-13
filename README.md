@@ -3,6 +3,8 @@
 3D implementation of Rubik's cube game written with  Vue + ThreeJS + Firebase.
 
 
+
+
 ## Installation
 
 (You need to have Nodejs and npm installed)
@@ -24,6 +26,9 @@ npm run dev
 Ready to run the project (under development environment)
 
 
+
+
+
 ## Build
 
 If you need to pack, execute:
@@ -32,6 +37,9 @@ If you need to pack, execute:
 npm run build
 ```
 The generated static files are saved in the ./dist directory
+
+
+
 
 
 ## Deployment with Firebase
@@ -54,6 +62,8 @@ firebase deploy
 ```
 
 If you need help deploying, visit the Firebase documentation: https://firebase.google.com/docs/hosting/quickstart
+
+
 
 
 Deval
