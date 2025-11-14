@@ -1,39 +1,54 @@
 <template>
   <div style="background-color:rgba(0,0,0,0);padding-top:1vh;padding-bottom:1vh;">
-<div id="madeByContainer">
-        made by <br/>
-        <a href="https://www.thedeval.com" target="_blank" style="color:white!important;text-decoration:none!important;">
-          <img src="../assets/logo.png" v-transition class="logo-deval"><br/>deval
-          </a></div>
-        <span v-transition class="msg">{{ steps }}</span>
-        <div id="barraLateral">
-          
-        <el-button
-          type="secondary"
-          icon="el-icon-refresh"
-          style="font-size:25px;margin:5px;padding:15px;"
-          @click="randomRotate"
-          :loading="randomRotateLoading"
-          :disabled="status"
-        ></el-button><br/>
-        <el-button
-          type="secondary"
-          icon="el-icon-success"
-          style="font-size:25px;margin:5px;padding:15px;"
-          @click="autoRest"
-          :loading="autoRestRunning"
-          :disabled="status"
-        ></el-button><br/>
-        <el-button
-          type="secondary"
-          icon="el-icon-arrow-right"
-          style="font-size:25px;margin:5px;padding:15px;"
-          @click="autoRestOneStep"
-          :disabled="status"
-        ></el-button>
-</div>
-
-
+    <div id="madeByContainer">
+      made by <br />
+      <a
+        href="https://www.thedeval.com"
+        target="_blank"
+        style="color:white!important;text-decoration:none!important;"
+      >
+        <img src="../assets/logo.png" class="logo-deval" /><br />deval
+      </a>
+    </div>
+    <transition>
+      <span class="msg">{{ steps }}</span>
+    </transition>
+    <div id="barraLateral">
+      <el-button
+        type="secondary"
+        style="font-size:25px;margin:5px;padding:15px;"
+        :loading="randomRotateLoading"
+        :disabled="status"
+        @click="randomRotate"
+      >
+        <el-icon>
+          <Refresh />
+        </el-icon>
+      </el-button>
+      <br />
+      <el-button
+        type="secondary"
+        style="font-size:25px;margin:5px;padding:15px;"
+        :loading="autoRestRunning"
+        :disabled="status"
+        @click="autoRest"
+      >
+        <el-icon>
+          <Check />
+        </el-icon>
+      </el-button>
+      <br />
+      <el-button
+        type="secondary"
+        style="font-size:25px;margin:5px;padding:15px;"
+        :disabled="status"
+        @click="autoRestOneStep"
+      >
+        <el-icon>
+          <ArrowRight />
+        </el-icon>
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -52,7 +67,7 @@ import {
   clearAll,
   autoRunOneStep
 } from "../utils/Rubik.js";
-import scanner from "./scanner";
+import scanner from "./scanner.vue";
 
 export default {
   name: "Rubik",
@@ -111,17 +126,18 @@ export default {
   },
 
   created() {
-    var _this = this;
-    document.onkeydown = function(e) {
-      let key = window.event.keyCode;
-      if (key === 32 && !_this.status) {
-        _this.autoRestOneStep();
+    this._keydownHandler = event => {
+      const keyCode = event.keyCode || event.which;
+      if ((event.code === "Space" || keyCode === 32) && !this.status) {
+        event.preventDefault();
+        this.autoRestOneStep();
       }
     };
   },
 
   mounted() {
-    if (this._isMobile()) {
+    const isMobile = this._isMobile();
+    if (isMobile) {
       this.off = 3;
       this.mobile = true;
       this.height = "0px";
@@ -129,9 +145,17 @@ export default {
     } else {
       this.width = String(window.innerWidth / 8) + "px";
     }
-    init(this._isMobile());
-    setInterval(this.updateTime, 100);
+    init(isMobile);
+    this._intervalId = setInterval(this.updateTime, 100);
+    window.addEventListener("keydown", this._keydownHandler);
+  },
 
+  beforeUnmount() {
+    window.removeEventListener("keydown", this._keydownHandler);
+    if (this._intervalId) {
+      clearInterval(this._intervalId);
+      this._intervalId = null;
+    }
   },
 
   methods: {
@@ -281,7 +305,7 @@ export default {
       let flag = navigator.userAgent.match(
         /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
       );
-      document.getElementsByName("txt").forEach(span => {
+      Array.from(document.getElementsByName("txt") || []).forEach(span => {
         span.style.fontSize = "26px";
       });
       return flag;

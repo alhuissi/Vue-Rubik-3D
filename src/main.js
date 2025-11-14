@@ -1,20 +1,19 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-const Vue = require('vue')
-const ElementUI = require('element-ui')
-const Three = require('three')
-const Cube = require('cubejs')
-import App from './App.vue'
-import VueMeta from "vue-meta";
-import '../static/common.css'
+import { createApp } from 'vue';
+import ElementPlus from 'element-plus';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import { createHead } from '@vueuse/head';
+import App from './App.vue';
+import 'element-plus/dist/index.css';
+import '../static/common.css';
 
-//Vue.config.productionTip = false
-Vue.prototype.$three = Three;
-Vue.use(VueMeta);
+const app = createApp(App);
+const head = createHead();
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App/>'
-})
+app.use(ElementPlus);
+app.use(head);
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
+
+app.mount('#app');

@@ -1,4 +1,6 @@
+import * as THREE from "three";
 import { OrbitControls } from "three-orbitcontrols-ts";
+import Cube from "cubejs";
 
 var camera = null;
 var scene = null;
@@ -28,8 +30,7 @@ export var stepCount = 0;
 var minCubeIndex = null;
 var speed = 200;
 var oldSpeed = 200;
-var Cube = null;
-var cube = null;
+let cube = null;
 var answer = {};
 var stepBystep = [];
 var newSolution = true;
@@ -88,8 +89,7 @@ export function init(is_mobile) {
     };
   }
 
-  if (Cube === null) {
-    Cube = require("cubejs");
+  if (cube === null) {
     cube = new Cube();
     Cube.initSolver();
   }

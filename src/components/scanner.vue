@@ -1,55 +1,83 @@
 <template>
-    <div class="scanner">
-        <el-button icon="el-icon-s-grid" type="info" circle @click="showDialog" :disabled="(randomRotate || autoRest || acceptString)"></el-button>
-        <el-dialog
-            :visible.sync="dialogVisible"
-            :width="width"
-            :show-close="false">
-            <el-row v-for="(num1, index) in [0,1,2]" :key="index+999">
-                <el-col v-for="(num2, index) in [1,2,3]" :key="index*200+333+num2" :span="2">
-                    <div class="ytt-empty" />
-                </el-col>
-                <el-col v-for="num2 in [0,1,2]" :key="3 * num1 + num2 + 888" :span="2">
-                    <div class="ytt-blue" @click="changeColor(3 * num1 + num2, $event)"/>
-                </el-col>
-                <el-col v-for="(num2, index) in [1,2,3]" :key="index*300+333" :span="2">
-                    <div class="ytt-empty" />
-                </el-col>
-                <el-col v-for="num2 in [0,1,2]" :key="3 * num1 + num2 + 668" :span="2">
-                    <div :class="'ytt-'+colorName[num2+3*num1]" :style="'border: 1px dashed #000'" v-if="num1!=2" @click="pickColor(num2+3*num1, $event)" name='pick' :id='num2+3*num1' />
-                </el-col>
-            </el-row>
-            <el-row v-for="(num1, index) in [3,4,5]" :key="index*400">
-                <el-col v-for="num2 in [0,1,2]" :key="3 * num1 + num2" :span="2">
-                    <div class="ytt-orange" @click="changeColor(3 * num1 + num2, $event)" />
-                </el-col>
-                <el-col v-for="num2 in [0,1,2]" :key="3 * (num1+3) + num2" :span="2">
-                    <div class="ytt-white" @click="changeColor(3 * (num1+3) + num2, $event)" />
-                </el-col>
-                <el-col v-for="num2 in [0,1,2]" :key="3 * (num1+6) + num2" :span="2">
-                    <div class="ytt-red" @click="changeColor(3 * (num1+6) + num2, $event)" />
-                </el-col>
-                <el-col v-for="num2 in [0,1,2]" :key="3 * (num1+9) + num2" :span="2">
-                    <div class="ytt-yellow" @click="changeColor(3 * (num1+9) + num2, $event)" />
-                </el-col>
-            </el-row>
-            <el-row v-for="(num1, index) in [3,4,5]" :key="index*600+122">
-                <el-col v-for="(num2, index) in [1,2,3]" :key="index*900" :span="2">
-                    <div class="ytt-empty" />
-                </el-col>
-                <el-col v-for="num2 in [0,1,2]" :key="3 * (num1+12) + num2" :span="2">
-                    <div class="ytt-green" @click="changeColor(3 * (num1+12) + num2, $event)" />
-                </el-col>
-            </el-row>
-            <span slot="footer" class="dialog-footer">
-                <el-button icon="el-icon-close" circle @click="dialogVisible = false" />
-                <el-button type="primary" icon="el-icon-check" circle @click="submit" />
-            </span>
-        </el-dialog>
-    </div>
+  <div class="scanner">
+    <el-button
+      type="info"
+      circle
+      :disabled="randomRotate || autoRest || acceptString"
+      @click="showDialog"
+    >
+      <el-icon>
+        <Grid />
+      </el-icon>
+    </el-button>
+    <el-dialog
+      v-model:visible="dialogVisible"
+      :width="width"
+      :show-close="false"
+    >
+      <el-row v-for="(num1, index) in [0, 1, 2]" :key="index + 999">
+        <el-col v-for="(num2, index) in [1, 2, 3]" :key="index * 200 + 333 + num2" :span="2">
+          <div class="ytt-empty" />
+        </el-col>
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * num1 + num2 + 888" :span="2">
+          <div class="ytt-blue" @click="changeColor(3 * num1 + num2, $event)" />
+        </el-col>
+        <el-col v-for="(num2, index) in [1, 2, 3]" :key="index * 300 + 333" :span="2">
+          <div class="ytt-empty" />
+        </el-col>
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * num1 + num2 + 668" :span="2">
+          <div
+            v-if="num1 != 2"
+            :class="'ytt-' + colorName[num2 + 3 * num1]"
+            style="border: 1px dashed #000"
+            name="pick"
+            :id="num2 + 3 * num1"
+            @click="pickColor(num2 + 3 * num1, $event)"
+          />
+        </el-col>
+      </el-row>
+      <el-row v-for="(num1, index) in [3, 4, 5]" :key="index * 400">
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * num1 + num2" :span="2">
+          <div class="ytt-orange" @click="changeColor(3 * num1 + num2, $event)" />
+        </el-col>
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * (num1 + 3) + num2" :span="2">
+          <div class="ytt-white" @click="changeColor(3 * (num1 + 3) + num2, $event)" />
+        </el-col>
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * (num1 + 6) + num2" :span="2">
+          <div class="ytt-red" @click="changeColor(3 * (num1 + 6) + num2, $event)" />
+        </el-col>
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * (num1 + 9) + num2" :span="2">
+          <div class="ytt-yellow" @click="changeColor(3 * (num1 + 9) + num2, $event)" />
+        </el-col>
+      </el-row>
+      <el-row v-for="(num1, index) in [3, 4, 5]" :key="index * 600 + 122">
+        <el-col v-for="(num2, index) in [1, 2, 3]" :key="index * 900" :span="2">
+          <div class="ytt-empty" />
+        </el-col>
+        <el-col v-for="num2 in [0, 1, 2]" :key="3 * (num1 + 12) + num2" :span="2">
+          <div class="ytt-green" @click="changeColor(3 * (num1 + 12) + num2, $event)" />
+        </el-col>
+      </el-row>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button circle @click="dialogVisible = false">
+            <el-icon>
+              <Close />
+            </el-icon>
+          </el-button>
+          <el-button type="primary" circle @click="submit">
+            <el-icon>
+              <Check />
+            </el-icon>
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
+import { ElMessageBox } from 'element-plus';
 import { acceptCubeString, cubeParams } from '../utils/Rubik.js'
 export default {
     name: 'scanner',
@@ -106,7 +134,7 @@ export default {
 
         changeColor(index, event) {
             if(index===22 || index===4 || index===31) {
-                this.$alert('FIXED POINT', 'ALERT', {
+                ElMessageBox.alert('FIXED POINT', 'ALERT', {
                     confirmButtonText: 'OK',
                     type: 'warning',
                     center: true,
@@ -122,7 +150,7 @@ export default {
         },
 
         pickColor(index, event) {
-            document.getElementsByName('pick').forEach(div => {
+            Array.from(document.getElementsByName('pick') || []).forEach(div => {
                 div.style.border= '1px dashed #000'
             })
             event.currentTarget.style.border = '1px solid #000'
@@ -173,7 +201,7 @@ export default {
         */
         submit() {
             if(!this.checkColors()) {
-                this.$alert(this.message, 'CHECK', {
+                ElMessageBox.alert(this.message, 'CHECK', {
                     confirmButtonText: 'OK',
                     type: 'error',
                     center: true,
